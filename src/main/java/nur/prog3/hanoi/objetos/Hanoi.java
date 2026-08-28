@@ -32,7 +32,7 @@ public class Hanoi {
             observado.firePropertyChange("HANOI",true, false);
             if (esperarDespuesDeMovimiento) {
                 try {
-                    Thread.currentThread().wait(200);
+                    Thread.sleep(   500);
                 } catch (InterruptedException e) {
                 }
             }

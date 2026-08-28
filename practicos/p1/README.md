@@ -18,10 +18,7 @@ El archivo y el regex son el medio, no el fin.
 * **Strategy.** Cada criterio de ordenamiento es una estrategia
   (por fecha, por nivel, por logger, por mensaje). El combo elige la
   estrategia; el algoritmo de sort no sabe qué está comparando más
-  allá del `compare`.
-* **Singleton.** Una clase `Configuracion` con la ruta del archivo
-  de ejemplo, el patrón regex por defecto y el tamaño máximo de líneas
-  a leer.
+  allá del `compare`. Basta con un criterio de ordenamiento
 
 ## Idea principal para el desarrollo
 
@@ -50,23 +47,15 @@ El archivo y el regex son el medio, no el fin.
 5. El ordenamiento puede ser el que ya vieron (inserción o QuickSort)
    sobre la lista propia. La Strategy solo responde
    `int comparar(EventoLog a, EventoLog b)`.
-6. El filtro aplica otra regex al mensaje (o a la línea original).
-   El resultado puede ser otra lista, o la misma lista “vista filtrada”.
-   Al filtrar o al ordenar se notifica a los observadores.
-7. Interfaz mínima: botón para cargar archivo, campo regex de filtro,
-   combo de criterio, panel o tabla que **dibuje** o liste los eventos
+6. Interfaz mínima: botones para generar Info, Debug, Error, Warn y un botón adicional para leer el archivo de logs, 
+   campo regex de filtro,
+   combo de criterio (puede no haber), panel o tabla que **dibuje** o liste los eventos
    (no hace falta JTable de Java si pintan con `drawString` en un panel).
-
-Incluyan en el proyecto un archivo `ejemplo.log` de al menos 30 líneas
-válidas y algunas inválidas a propósito.
 
 ## Elementos a revisar
 
 Preguntas posibles en la presentación:
 
-* Dibuje los nodos de la lista después de insertar tres eventos y
-  eliminar el del medio.
-* Escriba en papel `insertarAlFinal` y `insertarEn(posicion)`.
 * ¿Qué captura cada grupo de su regex? Pruebe con una línea en el
   pizarrón y diga qué queda en `group(1)`, `group(2)`, …
 * ¿Qué hace su programa con una línea que no matchea?
@@ -88,7 +77,3 @@ Preguntas posibles en la presentación:
   no en cada línea.
 * Cuiden la fecha: parsearla a `LocalDateTime` permite ordenar de
   verdad; ordenar el `String` solo funciona si el formato es ISO.
-* El log **del programa** no es el archivo que analizan. Configuren
-  Log4j2 para que el analizador escriba en consola o en otro archivo.
-* Si la IA les genera la lista con `ArrayList` por dentro, no cuenta.
-  En la revisión se pide el nodo y el enlace `siguiente`.

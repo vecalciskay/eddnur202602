@@ -6,13 +6,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class HanoiFrame extends JFrame {
+public class HanoiFrame extends JFrame  implements PropertyChangeListener {
     private HanoiPanel panel;
     private Hanoi modelo;
+    private final int n = 4;
 
     public HanoiFrame() {
-        modelo = new Hanoi(3);
+        modelo = new Hanoi(n);
+        modelo.addObserver(this);
         modelo.setEsperarDespuesDeMovimiento(true);
         this.panel = new HanoiPanel(modelo);
 
@@ -22,12 +26,7 @@ public class HanoiFrame extends JFrame {
         this.getContentPane().add(panel, BorderLayout.CENTER);
 
         JButton btn =  new JButton("Hacer");
-        btn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnHacer_click();
-            }
-        });
+        btn.addActionListener(e -> btnHacer_click());
         this.getContentPane().add(btn, BorderLayout.SOUTH);
 
         this.pack();
@@ -35,18 +34,17 @@ public class HanoiFrame extends JFrame {
     }
 
     private void btnHacer_click() {
-        Runnable worker = new Runnable() {
-
-            @Override
-            public void run() {
-                modelo.hacerHanoi(0,2,1,3);
-            }
-        };
+        Runnable worker = () -> modelo.hacerHanoi(0,2,1,n);
         Thread t = new Thread(worker);
         t.start();
     }
 
     public static void main(String[] args) {
         new HanoiFrame();
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println(modelo);
     }
 }

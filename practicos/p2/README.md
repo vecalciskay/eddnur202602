@@ -1,5 +1,8 @@
 # Práctico 2 - Servidor web de N-Reinas
 
+## Fecha de Presentación
+La fecha de presentación de este práctico es 11 de septiembre de 2026
+
 ## Objetivo principal
 
 Resolver el problema de las **N-Reinas** con un método **recursivo**

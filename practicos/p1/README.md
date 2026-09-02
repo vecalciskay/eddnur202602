@@ -1,5 +1,8 @@
 # Práctico 1 - Analizador de logs
 
+## Fecha de Presentación
+La fecha de presentación de este práctico es 1ero de septiembre de 2026
+
 ## Objetivo principal
 
 Leer un archivo de log, convertir cada línea válida en un objeto,

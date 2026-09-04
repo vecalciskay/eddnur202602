@@ -25,6 +25,17 @@ El servidor y el PNG son el medio para ver y explicar esa recurrencia.
   es tanto el panel local (opcional) como la imagen que se envía
   por HTTP.
 
+## Funcionamiento
+
+1. Ejecutan el programa y tiene una interfaz gráfica
+   con un menú Archivo (Tamaño, Hacer, Salir),
+   Servidor (Comenzar, Parar)
+2. Tamaño permite elegir el tamaño del tablero
+3. Hacer ejecuta N-reinas y muestra la solución de forma gráfica
+4. Comenzar hace que el servidor web comience  escuchar peticiones HTTP
+5. El usuario puede navegar a una dirección y ver el resultado de forma gráfica
+
+
 ## Idea principal para el desarrollo
 
 1. Modelo del tablero: arreglo `int[]` donde el índice es la fila y

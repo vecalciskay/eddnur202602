@@ -1,4 +1,16 @@
-package nur.prog3.imagenes;
+package nur.prog3.imagenes.objetos;
+
+import nur.prog3.imagenes.gui.AnalisisImagenPanel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * <ul>
@@ -36,11 +48,14 @@ public class Imagen {
     private int ancho;
     private int alto;
     private int[][] puntos;
+    private PropertyChangeSupport observado;
+    private static final Logger logger = LogManager.getRootLogger();
 
     public Imagen(int ancho, int alto) {
         this.ancho = ancho;
         this.alto = alto;
         this.puntos = new int[ancho][alto];
+        observado = new PropertyChangeSupport(this);
     }
 
     public void set(int x, int y, int color) {
@@ -75,5 +90,46 @@ public class Imagen {
         color[2] = b;
 
         return color;
+    }
+
+    public int getAncho() {
+        return ancho;
+    }
+
+    public int getAlto() {
+        return alto;
+    }
+
+    public void addObserver(PropertyChangeListener observador) {
+        this.observado.addPropertyChangeListener(observador);
+    }
+
+    public void cargarImagen(File f) {
+        BufferedImage bi = null;
+        try {
+            bi = ImageIO.read(f);
+        } catch (IOException e) {
+            logger.error("No se pudo leer el archivo");
+            return;
+        }
+
+        logger.info("Imagen leida de tamano " + bi.getWidth() + "x" + bi.getHeight());
+
+        this.ancho = bi.getWidth();
+        this.alto = bi.getHeight();
+
+        this.puntos = new int[ancho][alto];
+
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                puntos[i][j] = bi.getRGB(i, j);
+            }
+        }
+
+        this.observado.firePropertyChange("IMAGEN", true, false);
+    }
+
+    public void notificarCambios() {
+        this.observado.firePropertyChange("IMAGEN", true, false);
     }
 }

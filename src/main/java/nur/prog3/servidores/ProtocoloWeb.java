@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ProtocoloWeb {
+public class ProtocoloWeb implements Runnable {
     private static final Logger logger = LogManager.getRootLogger();
     private final Socket sckCliente;
 
@@ -25,16 +25,35 @@ public class ProtocoloWeb {
             OutputStream salida = sckCliente.getOutputStream();
 
             BufferedReader entrada = new BufferedReader(new InputStreamReader(inputStreamEntrada));
-
-
-            String linea = entrada.readLine();
+            String linea = "";
+            while(linea.isEmpty())
+                linea = entrada.readLine();
             logger.info("<<< " + linea);
 
-            //responderHtml(salida);
-            responderImagen(salida);
+            if (linea.contains("img"))
+                responderImagen(salida);
+            else if (linea.contains("txt"))
+                responderHtml(salida);
+            else responderError(salida);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void responderError(OutputStream salida) throws IOException {
+        String msg = "HTTP/1.1 404 Not Found\n" +
+                "Content-Type: text/html; charset=UTF-8\n" +
+                "Content-Length: 135\n" +
+                "\n" +
+                "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head><title>404 Not Found</title></head>\n" +
+                "<body><h1>404 Not Found</h1><p>The requested URL was not found.</p></body>\n" +
+                "</html>";
+        logger.info(">>> Devuelve error 404");
+        byte[] bytes = msg.getBytes(StandardCharsets.UTF_8);
+        salida.write(bytes);
+        salida.flush();
     }
 
     private void responderImagen(OutputStream salida) throws IOException {
@@ -75,5 +94,10 @@ public class ProtocoloWeb {
         byte[] bytes = enviar.getBytes(StandardCharsets.UTF_8);
         salida.write(bytes);
         salida.flush();
+    }
+
+    @Override
+    public void run() {
+        manejarConexion();
     }
 }

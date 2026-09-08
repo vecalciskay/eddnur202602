@@ -30,10 +30,13 @@ public class ServidorWeb {
         }
 
         try {
-            logger.info("Esperamos conexion de cliente");
-            Socket clt = sckServer.accept();
-            ProtocoloWeb protocolo = new ProtocoloWeb(clt);
-            protocolo.manejarConexion();
+            while(true) {  // while(!pleaseStop) {
+                logger.info("Esperamos conexion de cliente");
+                Socket clt = sckServer.accept();
+
+                Thread t = new Thread(new ProtocoloWeb(clt));
+                t.start();
+            }
         } catch(Exception e) {
             throw new RuntimeException(e);
         }

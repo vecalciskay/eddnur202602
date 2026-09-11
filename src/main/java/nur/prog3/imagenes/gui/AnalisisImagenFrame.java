@@ -1,9 +1,7 @@
 package nur.prog3.imagenes.gui;
 
 import nur.prog3.imagenes.objetos.Imagen;
-import nur.prog3.imagenes.operaciones.ConvertirBN;
-import nur.prog3.imagenes.operaciones.ConvertirGris;
-import nur.prog3.imagenes.operaciones.OperacionImagen;
+import nur.prog3.imagenes.operaciones.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -62,8 +60,26 @@ public class AnalisisImagenFrame extends JFrame implements PropertyChangeListene
         item.addActionListener(e -> menuOperaciones_Grises());
         menu.add(item);
 
+        item = new JMenuItem("Dither Floyd Steinberg");
+        item.addActionListener(e -> menuOperaciones_FloydSteinberg());
+        menu.add(item);
+
+        item = new JMenuItem("Convertir Rojos");
+        item.addActionListener(e -> menuOperaciones_Rojos());
+        menu.add(item);
+
         this.pack();
         this.setVisible(true);
+    }
+
+    private void menuOperaciones_FloydSteinberg() {
+        OperacionImagen op = new FloydSteinberg(modelo);
+        op.ejecutar();
+    }
+
+    private void menuOperaciones_Rojos() {
+        OperacionImagen op = new ConvertirTonosRojo(modelo);
+        op.ejecutar();
     }
 
     private void menuOperaciones_Grises() {
@@ -82,7 +98,7 @@ public class AnalisisImagenFrame extends JFrame implements PropertyChangeListene
     }
 
     private void menuArchivo_CargarImagen() {
-        JFileChooser chooser = new JFileChooser("C:/temp");
+        JFileChooser chooser = new JFileChooser("E:/Prog3/imgs");
         if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(this)) {
             File f = chooser.getSelectedFile();
             logger.info("Tratando de abrir archivo " + f.getName());

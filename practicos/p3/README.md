@@ -1,7 +1,7 @@
 # Práctico 3 - Convolución de imágenes
 
 ## Fecha de Presentación
-La fecha de presentación de este práctico es 19 de septiembre de 2026
+La fecha de presentación de este práctico es 18 de septiembre de 2026
 
 ## Objetivo principal
 

@@ -35,7 +35,9 @@ public class AnalisisImagenPanel extends JPanel
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        repaint();
+        if (evt.getPropertyName().equals("IMAGEN")) {
+            repaint();
+        }
     }
 
     @Override

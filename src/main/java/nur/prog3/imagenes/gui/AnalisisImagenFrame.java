@@ -11,19 +11,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 
-public class AnalisisImagenFrame extends JFrame {
+public class AnalisisImagenFrame extends JFrame implements PropertyChangeListener {
     private Imagen modelo;
+    private JLabel status;
     private static final Logger logger = LogManager.getRootLogger();
     public AnalisisImagenFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         modelo = new Imagen(600,400);
+        modelo.addObserver(this);
 
         AnalisisImagenPanel panel = new AnalisisImagenPanel(modelo);
 
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(panel, BorderLayout.CENTER);
+
+        status = new JLabel();
+        this.getContentPane().add(status, BorderLayout.SOUTH);
 
         JMenuBar bar = new JMenuBar();
         this.setJMenuBar(bar);
@@ -75,7 +82,7 @@ public class AnalisisImagenFrame extends JFrame {
     }
 
     private void menuArchivo_CargarImagen() {
-        JFileChooser chooser = new JFileChooser("E:/Prog3/imgs");
+        JFileChooser chooser = new JFileChooser("C:/temp");
         if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(this)) {
             File f = chooser.getSelectedFile();
             logger.info("Tratando de abrir archivo " + f.getName());
@@ -88,5 +95,12 @@ public class AnalisisImagenFrame extends JFrame {
 
     public static void main(String[] args) {
         new AnalisisImagenFrame();
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals("MENSAJE")) {
+            status.setText(modelo.getMensaje());
+        }
     }
 }

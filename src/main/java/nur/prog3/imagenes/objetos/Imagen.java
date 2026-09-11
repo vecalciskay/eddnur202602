@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
@@ -50,6 +51,7 @@ public class Imagen {
     private int[][] puntos;
     private PropertyChangeSupport observado;
     private static final Logger logger = LogManager.getRootLogger();
+    private String mensaje;
 
     public Imagen(int ancho, int alto) {
         this.ancho = ancho;
@@ -80,9 +82,9 @@ public class Imagen {
      * @return
      */
     public int[] getRgb(int x, int y) {
-        int b = puntos[x][y] & 0x00000011;
-        int g = (puntos[x][y] & 0x00001100) >> 8;
-        int r = (puntos[x][y] & 0x00110000) >> 16;
+        int b = puntos[x][y] & 0x000000FF;
+        int g = (puntos[x][y] & 0x0000FF00) >>> 8;
+        int r = (puntos[x][y] & 0x00FF0000) >>> 16;
 
         int[] color = new int[3];
         color[0] = r;
@@ -120,9 +122,13 @@ public class Imagen {
 
         this.puntos = new int[ancho][alto];
 
+        Raster raster = bi.getRaster();
+        int[] colors = new int[raster.getNumBands()];
+
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < alto; j++) {
-                puntos[i][j] = bi.getRGB(i, j);
+                raster.getPixel(i,j, colors);
+                set(i,j,colors[0],colors[1],colors[2]);
             }
         }
 
@@ -131,5 +137,14 @@ public class Imagen {
 
     public void notificarCambios() {
         this.observado.firePropertyChange("IMAGEN", true, false);
+    }
+
+    public void setMensaje(String msg) {
+        this.mensaje = msg;
+        this.observado.firePropertyChange("MENSAJE", true, false);
+    }
+
+    public String getMensaje() {
+        return this.mensaje;
     }
 }

@@ -16,12 +16,12 @@ public class ConvertirGris extends OperacionImagen {
         for (int i = 0; i < modelo.getAncho(); i++) {
             for (int j = 0; j < modelo.getAlto(); j++) {
                 int[] rgb = modelo.getRgb(i, j);
-                logger.debug("Px (" + i + "," + j + "): "  + rgb[0] + " " + rgb[1] + " " +  rgb[2]);
+                //Px (1184,216): 17 17 16
                 int promedio = (rgb[0] + rgb[1] + rgb[2]) / 3;
-                logger.debug("Promedio: " + promedio);
                 modelo.set(i, j, promedio, promedio, promedio);
             }
         }
+        logger.info("Operacion tonos de gris realizada");
         modelo.notificarCambios();
     }
 }

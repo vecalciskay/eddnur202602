@@ -60,6 +60,18 @@ public class Imagen {
         observado = new PropertyChangeSupport(this);
     }
 
+    public void copiarImagen(Imagen src) {
+        this.ancho = src.getAncho();
+        this.alto = src.getAlto();
+        this.puntos = new int[ancho][alto];
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                set(i,j,src.get(i,j));
+            }
+        }
+        notificarCambios();
+    }
+
     public void set(int x, int y, int color) {
         puntos[x][y] = color;
     }

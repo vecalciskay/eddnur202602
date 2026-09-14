@@ -7,11 +7,14 @@ import org.apache.logging.log4j.Logger;
 public class ConvertirBN extends OperacionImagen {
     private static final Logger logger = LogManager.getRootLogger();
     public ConvertirBN(Imagen modelo) {
+        this.nombre = "ConvertirBN";
         this.modelo = modelo;
     }
 
     @Override
     public void ejecutar() {
+        super.ejecutar();
+
         logger.info("CAmbiando iagen a BN");
         for (int i = 0; i < modelo.getAncho(); i++) {
             for (int j = 0; j < modelo.getAlto(); j++) {

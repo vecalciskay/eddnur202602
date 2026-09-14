@@ -1,5 +1,7 @@
 package nur.prog3.imagenes.gui;
 
+import nur.prog3.imagenes.deshacer.HistorialImagenes;
+import nur.prog3.imagenes.objetos.Configuracion;
 import nur.prog3.imagenes.objetos.Imagen;
 import nur.prog3.imagenes.operaciones.*;
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +50,18 @@ public class AnalisisImagenFrame extends JFrame implements PropertyChangeListene
         item.addActionListener(e -> menuArchivo_Salir());
         menu.add(item);
 
+        // Imagen
+        menu = new JMenu("Imagen");
+        bar.add(menu);
+
+        item = new JMenuItem("Deshacer");
+        item.addActionListener(e -> menuImagen_deshacer());
+        menu.add(item);
+
+        item = new JMenuItem("Rehacer");
+        item.addActionListener(e -> menuImagen_rehacer());
+        menu.add(item);
+
         // Operaciones
         menu = new JMenu("Operaciones");
         bar.add(menu);
@@ -70,6 +84,16 @@ public class AnalisisImagenFrame extends JFrame implements PropertyChangeListene
 
         this.pack();
         this.setVisible(true);
+    }
+
+    private void menuImagen_rehacer() {
+        HistorialImagenes historial = HistorialImagenes.getInstance();
+        historial.redo(modelo);
+    }
+
+    private void menuImagen_deshacer() {
+        HistorialImagenes historial = HistorialImagenes.getInstance();
+        historial.undo(modelo);
     }
 
     private void menuOperaciones_FloydSteinberg() {
@@ -98,7 +122,8 @@ public class AnalisisImagenFrame extends JFrame implements PropertyChangeListene
     }
 
     private void menuArchivo_CargarImagen() {
-        JFileChooser chooser = new JFileChooser("E:/Prog3/imgs");
+        String carpeta = Configuracion.getInstancia().getCarpetaImagenes();
+        JFileChooser chooser = new JFileChooser(carpeta);
         if (JFileChooser.APPROVE_OPTION == chooser.showOpenDialog(this)) {
             File f = chooser.getSelectedFile();
             logger.info("Tratando de abrir archivo " + f.getName());

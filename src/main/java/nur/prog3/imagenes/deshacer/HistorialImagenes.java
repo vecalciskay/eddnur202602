@@ -38,8 +38,10 @@ public class HistorialImagenes {
             logger.warn("La lista de undo esta vacia");
             return;
         }
+        Memento imagenActual = new Memento(imagen);
+        listaRedo.add(imagenActual);
+
         Memento memento = listaUndo.pop();
-        listaRedo.add(memento);
         imagen.copiarImagen(memento.getImagen());
     }
 
@@ -48,8 +50,10 @@ public class HistorialImagenes {
             logger.warn("La lista redo esta vacia");
             return;
         }
+        Memento imagenActual = new Memento(imagen);
+        listaUndo.add(imagenActual);
+
         Memento memento = listaRedo.pop();
-        listaUndo.add(memento);
         imagen.copiarImagen(memento.getImagen());
     }
 }

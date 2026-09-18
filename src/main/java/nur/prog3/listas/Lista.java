@@ -5,15 +5,37 @@ import java.util.Iterator;
 public class Lista<E> implements Iterable<E> {
 
     private Nodo<E> raiz;
-
+    private int total;
     public Lista() {
         raiz = null;
+        total = 0;
     }
 
     public void insertar(E o) {
         Nodo<E> nuevo = new Nodo<>(o);
         nuevo.setSiguiente(raiz);
         raiz = nuevo;
+        total++;
+    }
+
+    public E buscar(E target) {
+        for(E o : this) {
+            if (o.equals(target)) {
+                return o;
+            }
+        }
+        return null;
+    }
+
+    public int cantidad() {
+        /*
+        int resultado = 0;
+        for(E obj : this) {
+            resultado++;
+        }
+        return resultado;
+         */
+        return total;
     }
 
     public Iterator<E> iterator() {

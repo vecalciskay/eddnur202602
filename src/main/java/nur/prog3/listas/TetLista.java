@@ -19,5 +19,9 @@ public class TetLista {
         for (String obj : lista) {
             System.out.println(obj);
         }
+        System.out.println(lista.cantidad());
+
+        String s = lista.buscar("Hugo");
+        System.out.println("Encontro: " + s);
     }
 }

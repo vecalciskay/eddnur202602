@@ -23,5 +23,14 @@ public class TetLista {
 
         String s = lista.buscar("Hugo");
         System.out.println("Encontro: " + s);
+
+        lista.eliminar(1);
+        System.out.println(lista);
+
+        Lista<String> lista2 = new Lista<>();
+        lista2.adicionar("Hugo");
+        lista2.adicionar("Paco");
+        lista2.adicionar("Luis");
+        System.out.println(lista2);
     }
 }

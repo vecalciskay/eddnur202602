@@ -1,12 +1,15 @@
 package nur.prog3.listas;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Iterator;
 
 public class ListaDoble<E>  implements Iterable<E> {
-
-    private Nodo<E> raiz;
-    private Nodo<E> cola;
-    private int total;
+    private static final Logger logger = LogManager.getRootLogger();
+    protected Nodo<E> raiz;
+    protected Nodo<E> cola;
+    protected int total;
 
     @Override
     public Iterator<E> iterator() {
@@ -41,6 +44,94 @@ public class ListaDoble<E>  implements Iterable<E> {
         total++;
     }
 
+
+    /**
+     * Busca desde el principio y el final al mismo tiempo
+     * @param target
+     * @return
+     */
+    public E buscar(E target) {
+        if (total == 1) {
+            for(E o : this) {
+                if (o.equals(target)) {
+                    return o;
+                }
+            }
+            return null;
+        }
+        Nodo<E> actualInicio = raiz;
+        Nodo<E> actualFinal = cola;
+
+        int mitad = total / 2;
+        int actualPos = 1;
+
+        while(actualPos > mitad) {
+            if (actualInicio.getDato().equals(target))
+                return actualInicio.getDato();
+            if (actualFinal.getDato().equals(target))
+                return actualFinal.getDato();
+            actualInicio = actualInicio.getSiguiente();
+            actualFinal = actualFinal.getAnterior();
+            actualPos++;
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param pos 0 indica la primera posicion
+     */
+    public void eliminar(int pos) {
+        if (total == 0)
+            throw new ArrayIndexOutOfBoundsException("Lista vacia");
+        if (total < (pos + 1))
+            throw new ArrayIndexOutOfBoundsException("Posicion esta mas alla del ultimo elemento");
+        if (pos < 0)
+            throw new ArrayIndexOutOfBoundsException("No acepta posiciones negativas");
+
+        int mitad = total / 2;
+
+        if (pos == 0) {
+            raiz =  raiz.getSiguiente();
+            if (raiz != null)
+                raiz.setAnterior(null);
+            else
+                cola = null;
+            total--;
+            return;
+        }
+
+        if (pos < mitad) {
+            logger.info("Vaos desde la raiz");
+            int posActual = 0;
+            Nodo<E> actual = raiz;
+            while (posActual < (pos - 1)) {
+                actual = actual.getSiguiente();
+                posActual++;
+            }
+
+            if (actual.getSiguiente().getSiguiente() != null)
+                actual.getSiguiente().getSiguiente().setAnterior(actual);
+
+            actual.setSiguiente(actual.getSiguiente().getSiguiente());
+            total--;
+        } else {
+            logger.info("Vaos desde la cola");
+            int posActual = total-1;
+            Nodo<E> actual = cola;
+            while (posActual > (pos + 1)) {
+                actual = actual.getAnterior();
+                posActual--;
+            }
+
+            if (actual.getAnterior().getAnterior() != null)
+                actual.getAnterior().getAnterior().setSiguiente(actual);
+
+            actual.setAnterior(actual.getAnterior().getAnterior());
+            total--;
+        }
+    }
+
     @Override
     public String toString() {
         if (raiz == null) {
@@ -55,7 +146,7 @@ public class ListaDoble<E>  implements Iterable<E> {
         return sb.toString();
     }
 
-    class Nodo<E> {
+    static class Nodo<E> {
         private E dato;
         private Nodo<E> siguiente;
         private Nodo<E> anterior;

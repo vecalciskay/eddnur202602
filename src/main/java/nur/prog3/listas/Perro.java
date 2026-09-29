@@ -1,6 +1,6 @@
 package nur.prog3.listas;
 
-public class Perro {
+public class Perro implements Comparable<Perro> {
     private String identificador;
     private String nombre;
     private String raza;
@@ -34,5 +34,15 @@ public class Perro {
         if (this.identificador.equals(p.getIdentificador()))
             return true;
         return super.equals(obj);
+    }
+
+    @Override
+    public int compareTo(Perro o) {
+        if (this.identificador.compareTo(o.getIdentificador()) < 0)
+            return -1;
+        if (this.identificador.compareTo(o.getIdentificador()) > 0)
+            return 1;
+        return 0;
+        // return identificador.compareTo(o.getIdentificador());
     }
 }

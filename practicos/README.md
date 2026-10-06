@@ -24,12 +24,12 @@ que es el tema del práctico.
 
 ## Índice de prácticos
 
-| Práctico | Fecha de entrega |
-|----------|------------------|
-| [Analizador de logs](./p1/README.md) | Martes 1 de septiembre |
-| [Servidor N-Reinas](./p2/README.md) | Martes 8 de septiembre |
-| [Turnos por socket](./p3/README.md) | |
-| [Convolución de imágenes](./p4/README.md) | |
-| [Quadtree](./p5/README.md) | |
-| [Calculadora](./p6/README.md) | |
-| [Inventario DAO](./p7/README.md) | |
+| Práctico                                  | Fecha de entrega       |
+|-------------------------------------------|------------------------|
+| [Analizador de logs](./p1/README.md)      | Martes 1 de septiembre |
+| [Servidor N-Reinas](./p2/README.md)       | Martes 8 de septiembre |
+| [Convolución de imágenes](./p3/README.md) |                        |
+| [Turnos por socket](./p4/README.md)       | Viernes 9 de Octubre   |
+| [Quadtree](./p5/README.md)                |                        |
+| [Calculadora](./p6/README.md)             |                        |
+| [Inventario DAO](./p7/README.md)          |                        |

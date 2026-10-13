@@ -132,6 +132,10 @@ public class ListaDoble<E>  implements Iterable<E> {
         }
     }
 
+    public int cantidad() {
+        return total;
+    }
+
     @Override
     public String toString() {
         if (raiz == null) {

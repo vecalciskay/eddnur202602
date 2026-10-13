@@ -30,6 +30,6 @@ que es el tema del práctico.
 | [Servidor N-Reinas](./p2/README.md)       | Martes 8 de septiembre |
 | [Convolución de imágenes](./p3/README.md) |                        |
 | [Turnos por socket](./p4/README.md)       | Viernes 9 de Octubre   |
-| [Quadtree](./p5/README.md)                |                        |
+| [Quadtree](./p5/README.md)                | Martes 20 de Octubre   |
 | [Calculadora](./p6/README.md)             |                        |
 | [Inventario DAO](./p7/README.md)          |                        |

@@ -35,6 +35,12 @@ public class Arbol<E> {
         padre.getHijos().insertar(nuevo);
     }
 
+    public E getObjetoPosicion(int x, int y) {
+        if (raiz == null)
+            return null;
+        return raiz.getObjetoPosicion(x, y);
+    }
+
     @Override
     public String toString() {
         if (raiz == null)
@@ -46,6 +52,10 @@ public class Arbol<E> {
         private E dato;
         private String id;
         private ListaDoble<Nodo<E>> hijos;
+        private int x;
+        private int y;
+        private int ancho;
+        private int alto;
 
         public Nodo(String id, E o) {
             this.id = id;
@@ -105,6 +115,52 @@ public class Arbol<E> {
                     return true;
             }
             return false;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
+
+        public int getAncho() {
+            return ancho;
+        }
+
+        public void setAncho(int ancho) {
+            this.ancho = ancho;
+        }
+
+        public int getAlto() {
+            return alto;
+        }
+
+        public void setAlto(int alto) {
+            this.alto = alto;
+        }
+
+        public E getObjetoPosicion(int x, int y) {
+            if (this.x < x && (this.x + ancho) > x &&
+                this.y < y && (this.y + alto) > y) {
+                return dato;
+            }
+            E resultado = null;
+            for (Nodo<E> hijo: hijos ) {
+                resultado = hijo.getObjetoPosicion(x,y);
+                if (resultado != null)
+                    return resultado;
+            }
+            return null;
         }
     }
 }

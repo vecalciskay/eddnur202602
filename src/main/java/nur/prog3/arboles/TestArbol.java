@@ -15,6 +15,9 @@ public class TestArbol {
 
         arbol.insertar("N", "Susana", "S");
 
+        arbol.insertar("P1", "Noe","P");
+        arbol.insertar("P2", "Noelia","P");
+
         System.out.println(arbol);
 
     }

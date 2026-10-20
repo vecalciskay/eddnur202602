@@ -60,6 +60,11 @@ public class DibujoArbol {
         g.setColor(Color.black);
         g.drawRoundRect(x, y, width + 8, 18, 5, 5);
         g.drawString(nodo.getDato().toString(), x + 4, y + 15);
+
+        nodo.setX(x);
+        nodo.setY(y);
+        nodo.setAncho(width+8);
+        nodo.setAlto(18);
     }
 
     private int calcularAnchoRectanguloSubArbol(Graphics g, Arbol.Nodo nodo) {

@@ -32,6 +32,9 @@ public class FrameArbol extends JFrame {
 
         arbol.insertar("N", "Susana", "S");
 
+        arbol.insertar("P1", "Noe","P");
+        arbol.insertar("P2", "Noelia","P");
+
         return arbol;
     }
 

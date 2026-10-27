@@ -8,6 +8,7 @@ public class OperacionMultiplicacion extends Operacion {
 
     @Override
     public Numero calcular(Numero izq, Numero der) {
+
         return new Numero(izq.getValor() * der.getValor());
     }
 }

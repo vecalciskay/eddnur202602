@@ -7,6 +7,7 @@ public class OperacionSuma extends Operacion {
     }
 
     public Numero calcular(Numero izq, Numero der) {
+
         return new Numero(izq.getValor() + der.getValor());
     }
 }

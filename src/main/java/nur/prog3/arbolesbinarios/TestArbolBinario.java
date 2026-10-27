@@ -21,5 +21,10 @@ public class TestArbolBinario {
          */
 
         System.out.println(a);
+
+        //ArbolBinario b = new ArbolBinario("( 3   +   4)  ");
+        //System.out.println(b);
+        ArbolBinario b = new ArbolBinario("((4 - 1)*(6 + (35 / 2))) * 11");
+        System.out.println(b);
     }
 }

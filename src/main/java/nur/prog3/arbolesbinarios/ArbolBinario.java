@@ -22,6 +22,16 @@ public class ArbolBinario {
     private Nodo construirNodo(String exprEspacios) {
         Nodo resultado = null;
         String expr = exprEspacios.trim();
+
+        try {
+            float f = Float.parseFloat(expr);
+            logger.debug("Lee el numero " + f + " y devuelve nodo");
+            resultado = new Nodo(new Numero(f));
+            return resultado;
+        } catch(Exception e) {
+            logger.debug("Trato de leer numero pero no pudo, sigue normal " + expr);
+        }
+
         int numParentesis = 0;
         char c; // caracter actual que estamos leyendo, vamos uno por uno
         int posicion = 0; // posicion del caracter actual
@@ -55,27 +65,11 @@ public class ArbolBinario {
                 break;
             }
 
-            // c es un numero entre 0 y 9
-            // Leer un numero
-            if (c >= 48 && c <= 57 && numParentesis == 0) {
-                String numero = String.valueOf(c);
-                int posNumero = posicion + 1;
-                if (posNumero < expr.length())
-                    c = expr.charAt(posNumero);
-                while(c >= 48 && c <= 57 && posNumero < expr.length()) {
-                    numero += String.valueOf(c);
-                    posNumero++;
-                }
-                float numerof = Float.valueOf(numero);
-                resultado = new Nodo(new Numero(numerof));
-                logger.debug("En teoria hemos leido el numero: " + numero);
-                posicion = posNumero;
-                continue;
-            }
-
             posicion++;
         }
-        if (numParentesis == 0 && expr.startsWith("(") && expr.endsWith(")"))
+        if (resultado == null &&
+                numParentesis == 0 &&
+                expr.startsWith("(") && expr.endsWith(")"))
             return construirNodo(expr.substring(1, expr.length() - 1));
 
         return resultado;

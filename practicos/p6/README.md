@@ -60,8 +60,9 @@ Preguntas posibles en la presentación:
 * Escriba `evaluar(nodo)` en papel.
 * Una expresión inválida: `3+*4` o `(2+3`. ¿Qué loguea
   y qué ve el usuario?
-* `10-4-3` ¿da 3 o 9? ¿Su árbol es asociativo a la
-  izquierda?
 * ¿El Observer se dispara al parsear, al evaluar, o en
   los dos? ¿Quién es el sujeto?
 
+## Presentación
+
+La presentación del práctico se realizará el viernes 13 de Noviembre.
